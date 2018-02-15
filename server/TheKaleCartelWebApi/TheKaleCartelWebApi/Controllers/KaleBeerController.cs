@@ -32,7 +32,7 @@ namespace TheKaleCartelWebApi.Controllers
             IEnumerable<KaleBeerDto> orderedBeers;
 
             var beers = _repo.GetAll().OrderBy(b => b.CreationDate)
-                .Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageNumber);
+                .Skip((parameters.PageNumber - 1) * parameters.PageSize).Take(parameters.PageSize);
 
             orderedBeers = _mapper.Map<IEnumerable<KaleBeerDto>>(beers);
             
