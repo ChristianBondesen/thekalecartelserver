@@ -1,20 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using TheKaleCartelWebApi.Data;
-using TheKaleCartelWebApi.Repositories.KaleBeerRepository;
-using TheKaleCartelWebApi.Repositories.KaleEventRepository;
-using TheKaleCartelWebApi.Repositories.KaleProfileRepository;
-using TheKaleCartelWebApi.Repositories.KaleRecipeRepository;
+using TheKaleCartelWebApi.Repositories.Repository;
 
 namespace TheKaleCartelWebApi
 {
@@ -31,10 +22,7 @@ namespace TheKaleCartelWebApi
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddDbContext<KaleDbContext>();
-      services.AddTransient<IKaleProfileRepository, KaleProfileRepository>();
-      services.AddTransient<IKaleBeerRepository, KaleBeerRepository>();
-      services.AddTransient<IKaleRecipeRepository, KaleRecipeRepository>();
-      services.AddTransient<IKaleEventRepository, KaleEventRepository>();
+      services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new Info { Title = "The Kale Cartel", Version = "v1" });

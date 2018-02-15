@@ -1,15 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TheKaleCartelWebApi.Controllers.Parameters;
-using TheKaleCartelWebApi.DTO;
 using TheKaleCartelWebApi.DTO.Profile;
 using TheKaleCartelWebApi.Models;
-using TheKaleCartelWebApi.Repositories.KaleProfileRepository;
+using TheKaleCartelWebApi.Repositories.Repository;
 
 namespace TheKaleCartelWebApi.Controllers
 {
@@ -17,10 +12,10 @@ namespace TheKaleCartelWebApi.Controllers
     [Route("api/[Controller]")]
     public class KaleProfileController : Controller
     {
-        private readonly IKaleProfileRepository _repo;
+        private readonly IRepository<KaleProfile> _repo;
         private readonly IMapper _mapper;
 
-        public KaleProfileController(IKaleProfileRepository repo, IMapper mapper)
+        public KaleProfileController(IRepository<KaleProfile> repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
@@ -39,10 +34,10 @@ namespace TheKaleCartelWebApi.Controllers
             return Ok(profiles);
         }
 
-        [HttpGet("{name}")]
-        public IActionResult GetByName(string name)
+        [HttpGet("{id}")]
+        public IActionResult GetByName(int id)
         {
-            var profile = _mapper.Map<KaleProfileDetailsDto>(_repo.Get(p => p.Name == name));
+            var profile = _mapper.Map<KaleProfileDetailsDto>(_repo.Get(p => p.KaleProfileId == id));
 
           if (profile == null)
           {

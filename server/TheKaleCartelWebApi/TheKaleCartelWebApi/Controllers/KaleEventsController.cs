@@ -1,14 +1,12 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TheKaleCartelWebApi.DTO.Events;
 using TheKaleCartelWebApi.Models;
-using TheKaleCartelWebApi.Repositories.KaleEventRepository;
+using TheKaleCartelWebApi.Repositories.Repository;
 
 namespace TheKaleCartelWebApi.Controllers
 {
@@ -16,10 +14,10 @@ namespace TheKaleCartelWebApi.Controllers
   [Route("api/KaleEvents")]
   public class KaleEventsController : Controller
   {
-    private readonly IKaleEventRepository _repo;
+    private readonly IRepository<KaleEvent> _repo;
     private readonly IMapper _mapper;
 
-    public KaleEventsController(IKaleEventRepository repo, IMapper mapper)
+    public KaleEventsController(IRepository<KaleEvent> repo, IMapper mapper)
     {
       _repo = repo;
       _mapper = mapper;
@@ -28,9 +26,12 @@ namespace TheKaleCartelWebApi.Controllers
     [HttpGet]
     public async Task<ActionResult> Get()
     {
-      var respone = await this._repo.GetAll().Include(i=>i.KaleProfile).Include(i=>i.KaleBeers).Include(i=>i.KaleRecipes).ToListAsync();
+      var respone = await _repo.GetAll().Include(i=>i.KaleProfile)
+        .Include(i=>i.KaleBeers)
+        .Include(i=>i.KaleRecipes)
+        .ProjectTo<IEnumerable<GetEventDTO>>().ToListAsync();
 
-      return Ok(_mapper.Map<IEnumerable<GetEventDTO>>(respone));
+      return Ok(respone);
     }
 
     [HttpGet("{kaleevent}")]

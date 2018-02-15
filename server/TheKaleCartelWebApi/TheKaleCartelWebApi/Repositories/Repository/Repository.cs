@@ -1,18 +1,15 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using TheKaleCartelWebApi.Data;
 
 namespace TheKaleCartelWebApi.Repositories.Repository
 {
-    public abstract class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
-        protected KaleDbContext _context;
+        private readonly KaleDbContext _context;
 
-        protected Repository(KaleDbContext context)
+        public Repository(KaleDbContext context)
         {
             _context = context;
         }

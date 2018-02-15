@@ -1,15 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TheKaleCartelWebApi.Controllers.Parameters;
-using TheKaleCartelWebApi.DTO;
 using TheKaleCartelWebApi.DTO.Beer;
 using TheKaleCartelWebApi.Models;
-using TheKaleCartelWebApi.Repositories.KaleBeerRepository;
+using TheKaleCartelWebApi.Repositories.Repository;
 
 namespace TheKaleCartelWebApi.Controllers
 {
@@ -17,10 +13,10 @@ namespace TheKaleCartelWebApi.Controllers
     [Route("api/[Controller]")]
     public class KaleBeerController : Controller
     {
-        private readonly IKaleBeerRepository _repo;
+        private readonly IRepository<KaleBeer> _repo;
         private readonly IMapper _mapper;
 
-        public KaleBeerController(IKaleBeerRepository repo, IMapper mapper)
+        public KaleBeerController(IRepository<KaleBeer> repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;

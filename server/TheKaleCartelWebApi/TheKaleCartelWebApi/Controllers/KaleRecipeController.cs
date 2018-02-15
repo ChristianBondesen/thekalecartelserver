@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TheKaleCartelWebApi.DTO.Recipies;
 using TheKaleCartelWebApi.Models;
-using TheKaleCartelWebApi.Repositories.KaleRecipeRepository;
+using TheKaleCartelWebApi.Repositories.Repository;
 
 namespace TheKaleCartelWebApi.Controllers
 {
@@ -16,9 +13,9 @@ namespace TheKaleCartelWebApi.Controllers
     public class KaleRecipeController : Controller
     {
       private readonly IMapper _mapper;
-      private readonly IKaleRecipeRepository _repo;
+      private readonly IRepository<KaleRecipe> _repo;
 
-      public KaleRecipeController(IMapper mapper, IKaleRecipeRepository repo)
+      public KaleRecipeController(IMapper mapper, IRepository<KaleRecipe> repo)
       {
         _mapper = mapper;
         _repo = repo;
