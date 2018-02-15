@@ -46,8 +46,11 @@ namespace TheKaleCartelWebApi
       {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "The Kale Cartel V1");
       });
-      app.UseCors(options =>
-        options.AllowAnyOrigin());
+      app.UseCors(options => 
+            options.AllowAnyHeader()
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+        );
       app.UseMvc(routes =>
       {
         // SwaggerGen won't find controllers that are routed via this technique.
