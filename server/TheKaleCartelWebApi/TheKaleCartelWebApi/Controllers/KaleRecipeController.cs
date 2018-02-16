@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TheKaleCartelWebApi.DTO.Recipies;
 using TheKaleCartelWebApi.Models;
 using TheKaleCartelWebApi.Repositories.Repository;
@@ -34,17 +37,16 @@ namespace TheKaleCartelWebApi.Controllers
         return Ok(recipies);
       }
 
-      [HttpGet("name/{name}")]
-      public IActionResult GetByName(string name)
+      [HttpGet("{id}")]
+      public async Task<IActionResult> GetByName(int id)
       {
-        var orderedRecipe = _repo.Get(r => r.Name == name);
+        var orderedRecipe = await _repo.GetAll().ProjectTo<KaleRecipeDetailsDto>().SingleAsync(i => i.KaleRecipeId == id);
 
         if (orderedRecipe != null)
         {
-          var recipe = _mapper.Map<KaleRecipeDetailsDto>(orderedRecipe);
-          return Ok(recipe);
+          return Ok(orderedRecipe);
         }
-        return NotFound(name);
+        return NotFound(id);
       }
 
       [HttpPost]

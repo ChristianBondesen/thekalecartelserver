@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TheKaleCartelWebApi.DTO.Profile;
@@ -39,7 +40,7 @@ namespace TheKaleCartelWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-          var profile = await _repo.GetAll().Include(i => i.KaleBeers).SingleOrDefaultAsync();
+          var profile = await _repo.GetAll().Include(i => i.KaleBeers).SingleOrDefaultAsync(i=>i.KaleProfileId == id);
 
           if (profile == null)
           {
