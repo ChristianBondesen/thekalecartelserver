@@ -40,9 +40,10 @@ namespace TheKaleCartelWebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-          var profile = await _repo.GetAll().Include(i => i.KaleBeers).SingleOrDefaultAsync(i=>i.KaleProfileId == id);
+          var profile = await _repo.GetAll().Include(i => i.KaleBeers).Include(i=>i.KaleRecipes).SingleOrDefaultAsync(i=>i.KaleProfileId == id);
 
           if (profile == null)
+          {
           {
             return BadRequest();
           }
