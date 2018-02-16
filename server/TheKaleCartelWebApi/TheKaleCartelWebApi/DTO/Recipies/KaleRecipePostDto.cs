@@ -9,6 +9,6 @@ namespace TheKaleCartelWebApi.DTO.Recipies
     [Required]
     public int KaleProfileId { get; set; }
     [Required]
-    public string CoursOfAction { get; set; }
+    public string CourseOfAction { get; set; }
   }
 }

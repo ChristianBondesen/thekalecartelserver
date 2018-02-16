@@ -35,21 +35,7 @@ namespace TheKaleCartelWebApi.Controllers
             return Ok(orderedBeers);
         }
 
-        [HttpGet("name/{name}")]
-        public IActionResult GetBeerByName(string name)
-        {
-          var beer = _repo.Get(b => b.Name == name);
-
-          if (beer == null)
-          {
-            return BadRequest();
-          }
-          
-          var orderedBeer = _mapper.Map<KaleBeerDetailsDto>(beer);
-          return Ok(orderedBeer);
-        }
-
-        [HttpGet("id/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetBeerById(int id)
         {
           var beer = _repo.Get(b => b.KaleBeerId == id);

@@ -35,7 +35,7 @@ namespace TheKaleCartelWebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetByName(int id)
+        public IActionResult GetById(int id)
         {
             var profile = _mapper.Map<KaleProfileDetailsDto>(_repo.Get(p => p.KaleProfileId == id));
 
