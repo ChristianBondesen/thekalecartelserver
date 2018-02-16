@@ -11,7 +11,7 @@ namespace TheKaleCartelWebApi.DTO.Recipies
       public string Name { get; set; }
 
       [Required]
-      public int Rating { get; set; }
+      public double Rating { get; set; }
 
       [Required]
       public string CourseOfAction { get; set; }

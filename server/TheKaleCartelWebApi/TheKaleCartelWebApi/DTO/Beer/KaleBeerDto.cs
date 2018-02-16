@@ -10,7 +10,7 @@ namespace TheKaleCartelWebApi.DTO.Beer
         public string Name { get; set; }
 
         [Required]
-        public int Rating { get; set; }
+        public double Rating { get; set; }
 
     }
 }
