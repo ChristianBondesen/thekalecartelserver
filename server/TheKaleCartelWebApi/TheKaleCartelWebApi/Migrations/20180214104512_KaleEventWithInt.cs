@@ -44,10 +44,7 @@ namespace TheKaleCartelWebApi.Migrations
                 nullable: false,
                 defaultValue: "");
 
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_KaleEvents",
-                table: "KaleEvents",
-                column: "Id");
+            
         }
     }
 }

@@ -29,7 +29,7 @@ namespace TheKaleCartelWebApi.Controllers
       var respone = await _repo.GetAll().Include(i=>i.KaleProfile)
         .Include(i=>i.KaleBeers)
         .Include(i=>i.KaleRecipes)
-        .ProjectTo<IEnumerable<GetEventDTO>>().ToListAsync();
+        .ProjectTo<GetEventDTO>().ToListAsync();
 
       return Ok(respone);
     }
